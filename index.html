@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/react-pokedex/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React + TS</title>
 
@@ -12,10 +12,18 @@
       href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="/react-pokedex/assets/index-_D_Rlmao.js"></script>
-    <link rel="stylesheet" crossorigin href="/react-pokedex/assets/index--WcnUghw.css">
+    <script type="module" crossorigin src="./assets/index-2YbRHBVT.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index--WcnUghw.css">
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      if (
+        window.location.pathname !== "/" &&
+        window.location.pathname !== "/react-pokedex/"
+      ) {
+        window.location.href = "/react-pokedex" + window.location.pathname;
+      }
+    </script>
   </body>
 </html>
