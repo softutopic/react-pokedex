@@ -1,10 +1,12 @@
 import Palette from "color-thief-react/lib/Palette/Palette.component";
-import DropDownCustom from "./DropDownCustom";
-import { PokemonCard } from "./PokemonCard";
+import DropDownCustom from "../components/DropDownCustom";
+import { PokemonCard } from "../components/PokemonCard";
 import { useEffect, useState } from "react";
+import { Transition } from "@headlessui/react";
 
 export function Pokedex() {
   const [pokemonList, setPokemonList] = useState([]);
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,22 +57,37 @@ export function Pokedex() {
               key={index}
             >
               {({ data, loading }) => {
-                console.log(data);
-                if (loading) return <div>Loading...</div>;
+                if (loading)
+                  return (
+                    <div role="status" className="max-w-sm animate-pulse">
+                      <div className="w-full h-[150px] bg-gray-200 rounded-[8px] dark:bg-gray-700 mb-4"></div>
+                    </div>
+                  );
                 const nameStr: string = name;
+                setActive(true);
                 const cName = nameStr.replace(
                   /(^\w{1})|(\s+\w{1})/g,
                   (letter) => letter.toUpperCase()
                 );
                 return (
-                  <PokemonCard
-                    key={index}
-                    pokemonName={cName}
-                    url={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${
-                      index + 1
-                    }.svg`}
-                    backcolor={data![1]}
-                  />
+                  <Transition
+                    show={active}
+                    enter="transition-all ease-in-out duration-900 delay-[200ms]"
+                    enterFrom="opacity-0 translate-y-6"
+                    enterTo="opacity-100 translate-y-0"
+                    leave="transition-all ease-in-out duration-300"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                  >
+                    <PokemonCard
+                      key={index}
+                      pokemonName={cName}
+                      url={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${
+                        index + 1
+                      }.svg`}
+                      backcolor={data![1]}
+                    />
+                  </Transition>
                 );
               }}
             </Palette>

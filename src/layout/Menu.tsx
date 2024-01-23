@@ -1,6 +1,5 @@
-import React from "react";
 import Logo from "../assets/Logo.png";
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 const menuItems = [
   {
@@ -25,12 +24,6 @@ const menuItems = [
   },
 ];
 export const Menu = () => {
-  const [activeMenu, setActiveMenu] = React.useState(1);
-
-  const handleClick = (index: number) => {
-    setActiveMenu(index);
-  };
-
   return (
     <>
       <nav className="w-screen bg-[#F5DB13] p-4 drop-shadow-md absolute">
@@ -38,18 +31,15 @@ export const Menu = () => {
           <img src={Logo} alt="Pokemón" className=" w-[157px] h-[63px] ml-5 " />
           <div className="flex flex-row justify-evenly w-[60%] list-none">
             {menuItems.map((menuItem) => (
-              <li
-                className={`text-[25px] font-normal ${
-                  activeMenu == menuItem.index && "underline"
-                }`}
-                key={menuItem.index}
-              >
-                <Link
+              <li className={`text-[25px] font-normal`} key={menuItem.index}>
+                <NavLink
                   to={menuItem.url}
-                  onClick={() => handleClick(menuItem.index)}
+                  className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "underline" : ""
+                  }
                 >
                   {menuItem.menu}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </div>

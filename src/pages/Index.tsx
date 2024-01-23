@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CompleteBanner from "../assets/BannerComplete.png";
 
 export const Index = () => {
@@ -12,12 +13,13 @@ export const Index = () => {
           You can know the type of Pokemon, its strengths, disadvantages and
           abilities
         </p>
-        <button
+        <Link
+          to="pokedex"
           type="button"
-          className="text-[#212121] bg-[#73D677] font-[700] rounded-[11px] text-[23px] px-5 py-2.5 me-2 mb-2 w-[231px] h-[66px] [box-shadow:0px_-9px_0px_0px_rgba(0,_0,_0,_0.18)_inset] border-[0] focus:border-[0] focus:outline-none"
+          className="flex text-[#212121] bg-[#73D677] font-[700] rounded-[11px] text-[23px] px-5 py-2.5 me-2 mb-2 w-[231px] h-[66px] [box-shadow:0px_-9px_0px_0px_rgba(0,_0,_0,_0.18)_inset] border-[0] focus:border-[0] focus:outline-none items-center justify-center"
         >
           See pokemons
-        </button>
+        </Link>
       </div>
 
       <img src={CompleteBanner} alt="Pikachu Image" className="w-[40%]" />
