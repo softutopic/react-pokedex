@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  font-family: "Karla", sans-serif!important;
   font-optical-sizing: auto;
   line-height: 1.5;
   font-weight: 400;
@@ -70,4 +71,10 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+#customModal {
+  width: 60%;
+  height: fit-content;
+  margin: 0 auto;
 }

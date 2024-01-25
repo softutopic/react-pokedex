@@ -12,7 +12,7 @@ export function Pokedex() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://pokeapi.co/api/v2/pokemon/?limit=30"
+          "https://pokeapi.co/api/v2/pokemon/?limit=200"
         );
         const { results } = await response.json();
         setPokemonList(results);
@@ -46,7 +46,7 @@ export function Pokedex() {
         <div className="w-auto h-[64px]"></div>
         <div className="w-full grid grid-cols-3 gap-[34px]">
           {/* Pokemon Card */}
-          {pokemonList.map(({ name }, index) => (
+          {pokemonList.map(({ name, url }, index) => (
             <Palette
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${
                 index + 1
@@ -82,10 +82,11 @@ export function Pokedex() {
                     <PokemonCard
                       key={index}
                       pokemonName={cName}
-                      url={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${
+                      imageUrl={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${
                         index + 1
                       }.svg`}
                       backcolor={data![1]}
+                      dataUrl={url}
                     />
                   </Transition>
                 );

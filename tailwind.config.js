@@ -5,10 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    fontFamily: {
-      display: ["Karla", "sans-serif"],
+    extend: {
+      fontFamily: {
+        karla: ["Karla", "sans-serif"],
+      },
     },
-    extend: {},
   },
   plugins: [],
 }
