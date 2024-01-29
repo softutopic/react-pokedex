@@ -101,12 +101,12 @@ export const ModalWindow = ({
     data &&
     dataGeneration &&
     dataSpecie && (
-      <div className="flex flex-row">
+      <div className="flex flex-row h-full">
         <div className="flex flex-col justify-center w-[50%] p-[16px] overflow-hidden">
           <img
             src={data.sprites.other.dream_world.front_default}
             alt={data.name}
-            className="object-contain"
+            className="object-contain h-[80%]"
           />
           <div className="w-full p-5"></div>
           <div className="flex flex-row justify-end">

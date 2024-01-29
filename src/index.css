@@ -75,6 +75,6 @@ button:focus-visible {
 
 #customModal {
   width: 60%;
-  height: fit-content;
+  height: 60%;
   margin: 0 auto;
 }
