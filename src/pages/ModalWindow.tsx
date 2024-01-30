@@ -1,4 +1,6 @@
+import React from "react";
 import { useEffect, useState } from "react";
+import { PokemonContext } from "../components/IContextProps";
 
 export const ModalWindow = ({
   dataUrl,
@@ -10,6 +12,7 @@ export const ModalWindow = ({
   const [data, setData] = useState<any>();
   const [dataSpecie, setDataSpecie] = useState<any>();
   const [dataGeneration, setDataGeneration] = useState<any>();
+  const { setOpen } = React.useContext(PokemonContext);
 
   //Api Calls
   useEffect(() => {
@@ -101,63 +104,82 @@ export const ModalWindow = ({
     data &&
     dataGeneration &&
     dataSpecie && (
-      <div className="flex flex-row h-full">
-        <div className="flex flex-col justify-center w-[50%] p-[16px] overflow-hidden">
+      <div className="flex flex-col md:flex-row h-full">
+        <div className="h-[35%] w-full md:w-[45%] md:h-full flex flex-col justify-center md:justify-evenly">
+          <div
+            className="absolute top-2 left-2 md:hidden"
+            onClick={() => setOpen(false)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={5}
+              stroke="#212121"
+              className="w-10 h-10"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18 18 6M6 6l12 12"
+              />
+            </svg>
+          </div>
+          <div className="w-full text-center mt-20 md:mt-0">
+            <h1 className=" text-[36px] text-[#FDFDFD] font-[700] [text-shadow:4px_4px_4px_rgba(33,_33,_33,_0.10)]">
+              {name}
+            </h1>
+          </div>
+
           <img
             src={data.sprites.other.dream_world.front_default}
             alt={data.name}
-            className="object-contain h-[80%]"
+            className="object-contain h-[80%] z-0 mt-3"
           />
-          <div className="w-full p-5"></div>
-          <div className="flex flex-row justify-end">
-            {data.types.map((type: any) => {
-              return (
-                <div
-                  className="flex text-[#212121] font-[400] rounded-full text-[12px] px-5 py-1 me-2 mb-2 w-[74px] [box-shadow:0px_-5px_0px_0px_rgba(0,_0,_0,_0.18)_inset] border-[0] focus:border-[0] focus:outline-none items-center justify-center"
-                  style={{
-                    backgroundColor: badgeColors(type.type.name),
-                  }}
-                >
-                  {type.type.name.replace(
-                    /(^\w{1})|(\s+\w{1})/g,
-                    (letter: string) => letter.toUpperCase()
-                  ) ?? ""}
-                </div>
-              );
-            })}
-          </div>
         </div>
 
-        <div className="flex flex-col justify-around w-[50%] p-[16px] bg-gradient-to-b from-[rgba(0,_0,_0,_0.4)] via-[rgba(0,_0,_0,_0.4)] to-[transparent]">
-          {/* name */}
-          <div className="flex flex-row">
-            <div className="w-[50%]">
-              <h1 className=" text-[36px] text-[#FDFDFD] font-[700] [text-shadow:4px_4px_4px_rgba(33,_33,_33,_0.10)]">
-                {name}
-              </h1>
-            </div>
+        <div className="flex flex-col h-[65%] md:w-[55%] md:h-full bg-gradient-to-b from-[rgba(0,_0,_0,_0.4)] via-[rgba(0,_0,_0,_0.4)] to-[transparent] rounded-2xl md:rounded-none px-3 gap-3 md:justify-evenly">
+          <div className="pt-10 md:hidden"></div>
+          <div className="w-full flex flex-row">
             <div className="w-[50%] flex flex-row gap-3 items-center">
-              <p className="text-[#FDFDFD] text-center text-[24px] not-italic leading-[normal] font-[500]">
+              <div className="w-[41px] h-[41px] rounded-full bg-[#F2CB07] flex justify-center items-center">
+                <p className="text-[16px] font-[500]">{dataSpecie.id}</p>
+              </div>
+              <p className="text-[#FDFDFD] text-center text-[16px] leading-[normal] font-[500]">
                 {dataGeneration.names.map((name: any) => {
                   return name.language.name === "en" ? name.name : "";
                 })}
               </p>
-              <div className="w-[41px] h-[41px] rounded-full bg-[#F2CB07] flex justify-center items-center">
-                <p className="text-[16px] font-[500]">{dataSpecie.id}</p>
-              </div>
+            </div>
+            <div className="flex flex-row justify-end w-[50%]">
+              {data.types.map((type: any, index: number) => {
+                return (
+                  <div
+                    className="flex text-[#212121] font-[400] rounded-full text-[12px] px-5 py-1 me-2 mb-2 w-[74px] [box-shadow:0px_-5px_0px_0px_rgba(0,_0,_0,_0.18)_inset] border-[0] focus:border-[0] focus:outline-none items-center justify-center"
+                    style={{
+                      backgroundColor: badgeColors(type.type.name),
+                    }}
+                    key={index}
+                  >
+                    {type.type.name.replace(
+                      /(^\w{1})|(\s+\w{1})/g,
+                      (letter: string) => letter.toUpperCase()
+                    ) ?? ""}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          {/* abilities */}
-          <div className="flex flex-col p-[16px] bg-white rounded-md w-fit">
+          <div className="flex flex-col p-[16px] bg-white rounded-md w-full">
             <p className="text-black text-[16px] font-[500]">Abilities</p>
             <p className="text-black text-[16px] font-[500]">
               {listAbilites(data.abilities)}
             </p>
           </div>
-          {/* Healty */}
-          <div className="p-[16px] bg-white rounded-md w-full flex flex-row gap-3">
-            <div className="w-[50%]">
+
+          <div className="p-[16px] bg-white rounded-md w-full flex flex-col gap-3">
+            <div className="w-full">
               <p className="text-black text-[16px] font-[500]">
                 Healthy Points
               </p>
@@ -171,7 +193,7 @@ export const ModalWindow = ({
                 ></div>
               </div>
             </div>
-            <div className="w-[50%]">
+            <div className="w-full">
               <p className="text-black text-[16px] font-[500]">Experience</p>
               <p className="text-black text-[16px] font-[500]">
                 {pokemonStats("xp")}
@@ -185,39 +207,38 @@ export const ModalWindow = ({
             </div>
           </div>
 
-          {/* Stats */}
-          <div className="flex flex-row justify-between">
-            <div className="p-[16px] bg-white rounded-md flex flex-col gap-3 justify-center items-center w-[7rem] h-[7rem]">
-              <div className="w-[50px] h-[50px] rounded-full border-[3px] border-[#212121] flex justify-center items-center">
+          <div className="flex flex-row justify-between gap-1">
+            <div className="p-[8px] bg-white rounded-md flex flex-col gap-2 justify-center items-center w-[7rem] h-fit">
+              <div className="w-[35px] h-[35px] rounded-full border-[3px] border-[#212121] flex justify-center items-center">
                 <p className="text-[#212121] text-[16px] font-[500]">
                   {pokemonStats("defense")}
                 </p>
               </div>
-              <p className="text-[#212121] text-[12px] font-[500]">Defense</p>
+              <p className="text-[#212121] text-[11px] font-[500]">Defense</p>
             </div>
-            <div className="p-[16px] bg-white rounded-md flex flex-col gap-3 justify-center items-center w-[7rem] h-[7rem]">
-              <div className="w-[50px] h-[50px] rounded-full border-[3px] border-[#212121] flex justify-center items-center">
+            <div className="p-[8px] bg-white rounded-md flex flex-col gap-2 justify-center items-center w-[7rem] h-fit">
+              <div className="w-[35px] h-[35px] rounded-full border-[3px] border-[#212121] flex justify-center items-center">
                 <p className="text-[#212121] text-[16px] font-[500]">
                   {pokemonStats("attack")}
                 </p>
               </div>
-              <p className="text-[#212121] text-[12px] font-[500]">Attack</p>
+              <p className="text-[#212121] text-[11px] font-[500]">Attack</p>
             </div>
-            <div className="p-[16px] bg-white rounded-md flex flex-col gap-3 justify-center items-center w-[7rem] h-[7rem]">
-              <div className="w-[50px] h-[50px] rounded-full border-[3px] border-[#212121] flex justify-center items-center">
+            <div className="p-[8px] bg-white rounded-md flex flex-col gap-2 justify-center items-center w-[7rem] h-fit">
+              <div className="w-[35px] h-[35px] rounded-full border-[3px] border-[#212121] flex justify-center items-center">
                 <p className="text-[#212121] text-[16px] font-[500]">
                   {pokemonStats("special-attack")}
                 </p>
               </div>
-              <p className="text-[#212121] text-[12px] font-[500]">Sp attack</p>
+              <p className="text-[#212121] text-[11px] font-[500]">Sp attack</p>
             </div>
-            <div className="p-[16px] bg-white rounded-md flex flex-col gap-3 justify-center items-center w-[7rem] h-[7rem]">
-              <div className="w-[50px] h-[50px] rounded-full border-[3px] border-[#212121] flex justify-center items-center">
+            <div className="p-[8px] bg-white rounded-md flex flex-col gap-2 justify-center items-center w-[7rem] h-fit">
+              <div className="w-[35px] h-[35px] rounded-full border-[3px] border-[#212121] flex justify-center items-center">
                 <p className="text-[#212121] text-[16px] font-[500]">
                   {pokemonStats("special-defense")}
                 </p>
               </div>
-              <p className="text-[#212121] text-[12px] font-[500]">
+              <p className="text-[#212121] text-[11px] font-[500]">
                 Sp defense
               </p>
             </div>

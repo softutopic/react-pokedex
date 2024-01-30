@@ -53,9 +53,9 @@ export const Menu = () => {
             >
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="3"
                 d="M1 1h15M1 7h15M1 13h15"
               />
             </svg>

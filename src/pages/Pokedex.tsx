@@ -12,7 +12,7 @@ export function Pokedex() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://pokeapi.co/api/v2/pokemon/?limit=200"
+          "https://pokeapi.co/api/v2/pokemon/?limit=20"
         );
         const { results } = await response.json();
         setPokemonList(results);
@@ -26,8 +26,8 @@ export function Pokedex() {
 
   return (
     <div className="w-screen h-auto flex self-center justify-center">
-      <div className="mt-[10rem] w-[80%] h-auto flex flex-col justify-normal items-center pb-[100px]">
-        <p className="text-[35px] tracking-[3px] text-black">
+      <div className="mt-[5rem] md:mt-[10rem] w-[80%] h-auto flex flex-col justify-normal items-center pb-[100px]">
+        <p className="text-[24px] md:text-[35px] text-center tracking-[3px] text-black">
           800 <span className="font-[700]">Pokemons</span> for you to choose
           your favorite
         </p>
@@ -38,13 +38,13 @@ export function Pokedex() {
           placeholder="Find your favorite pokemon ..."
         />
         <div className="w-auto h-[34px]"></div>
-        <div className="px-8 w-full flex flex-row gap-[64px] justify-start">
+        <div className="hidden px-8 w-full md:flex flex-row gap-[64px] justify-start">
           <DropDownCustom title="Type" />
           <DropDownCustom title="Attack" />
           <DropDownCustom title="Experience" />
         </div>
-        <div className="w-auto h-[64px]"></div>
-        <div className="w-full grid grid-cols-3 gap-[34px]">
+        <div className="w-auto md:h-[64px]"></div>
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-[34px]">
           {/* Pokemon Card */}
           {pokemonList.map(({ name, url }, index) => (
             <Palette
